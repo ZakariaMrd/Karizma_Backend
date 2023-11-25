@@ -2,6 +2,7 @@ package com.example.karizma_backend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Utilisateur implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class Utilisateur implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user",targetEntity = Recettes.class,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "utilisateur",targetEntity = Recettes.class,cascade = CascadeType.ALL)
     private List<Recettes> recettes;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
